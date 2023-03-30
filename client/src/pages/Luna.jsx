@@ -55,7 +55,7 @@ const Luna = () => {
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
     >
-      <Collapse in={error}>
+      <Collapse in={!!error}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>

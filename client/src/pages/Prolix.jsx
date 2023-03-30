@@ -14,7 +14,7 @@ import {
   Card,
 } from "@mui/material";
 
-const Paragraph = () => {
+const Prolix = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   //media
@@ -29,7 +29,7 @@ const Paragraph = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/openai/paragraph",
+        "http://localhost:8080/api/v1/openai/prolix",
         { text }
       );
       console.log(data);
@@ -55,7 +55,7 @@ const Paragraph = () => {
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
     >
-      <Collapse in={error}>
+      <Collapse in={!!error}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
@@ -133,4 +133,4 @@ const Paragraph = () => {
   );
 };
 
-export default Paragraph;
+export default Prolix;

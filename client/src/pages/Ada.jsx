@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import axios from "axios";
 import {
   Box,
@@ -13,14 +14,14 @@ import {
   Card,
 } from "@mui/material";
 
-const Summy = () => {
+const Ada = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   // states
   const [text, settext] = useState("");
-  const [summary, setSummary] = useState("");
+  const [image, setImage] = useState("");
   const [error, setError] = useState("");
 
   //register ctrl
@@ -28,11 +29,11 @@ const Summy = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/openai/summy",
+        "http://localhost:8080/api/v1/openai/ada",
         { text }
       );
       console.log(data);
-      setSummary(data);
+      setImage(data);
     } catch (err) {
       console.log(error);
       if (err.response.data.error) {
@@ -60,7 +61,7 @@ const Summy = () => {
         </Alert>
       </Collapse>
       <form onSubmit={handleSubmit}>
-        <Typography variant="h3">Summarize Text</Typography>
+        <Typography variant="h3">Scifi Image</Typography>
 
         <TextField
           placeholder="add your text"
@@ -89,7 +90,7 @@ const Summy = () => {
         </Typography>
       </form>
 
-      {summary ? (
+      {image ? (
         <Card
           sx={{
             mt: 4,
@@ -101,7 +102,9 @@ const Summy = () => {
             bgcolor: "background.default",
           }}
         >
-          <Typography p={2}>{summary}</Typography>
+          <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
+            <img src={image} alt="scifiimage" />
+          </Box>
         </Card>
       ) : (
         <Card
@@ -124,7 +127,7 @@ const Summy = () => {
               lineHeight: "450px",
             }}
           >
-            Summary Will Apprea Here
+            Your Scifi Image Will Apprea Here
           </Typography>
         </Card>
       )}
@@ -132,4 +135,4 @@ const Summy = () => {
   );
 };
 
-export default Summy;
+export default Ada;

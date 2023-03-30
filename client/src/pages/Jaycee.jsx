@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import axios from "axios";
 import {
   Box,
@@ -13,14 +14,14 @@ import {
   Card,
 } from "@mui/material";
 
-const Summy = () => {
+const Jaycee = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   // states
   const [text, settext] = useState("");
-  const [summary, setSummary] = useState("");
+  const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
   //register ctrl
@@ -28,11 +29,13 @@ const Summy = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/openai/summy",
-        { text }
+        "http://localhost:8080/api/v1/openai/jaycee",
+        {
+          text,
+        }
       );
       console.log(data);
-      setSummary(data);
+      setCode(data);
     } catch (err) {
       console.log(error);
       if (err.response.data.error) {
@@ -60,7 +63,7 @@ const Summy = () => {
         </Alert>
       </Collapse>
       <form onSubmit={handleSubmit}>
-        <Typography variant="h3">Summarize Text</Typography>
+        <Typography variant="h3">JS Converter</Typography>
 
         <TextField
           placeholder="add your text"
@@ -82,14 +85,14 @@ const Summy = () => {
           size="large"
           sx={{ color: "white", mt: 2 }}
         >
-          Submit
+          Convert
         </Button>
         <Typography mt={2}>
           not this tool ? <Link to="/">GO BACK</Link>
         </Typography>
       </form>
 
-      {summary ? (
+      {code ? (
         <Card
           sx={{
             mt: 4,
@@ -99,9 +102,12 @@ const Summy = () => {
             borderRadius: 5,
             borderColor: "natural.medium",
             bgcolor: "background.default",
+            overflow: "auto",
           }}
         >
-          <Typography p={2}>{summary}</Typography>
+          <pre>
+            <Typography p={2}>{code}</Typography>
+          </pre>
         </Card>
       ) : (
         <Card
@@ -124,7 +130,7 @@ const Summy = () => {
               lineHeight: "450px",
             }}
           >
-            Summary Will Apprea Here
+            Your Code Will Apprea Here
           </Typography>
         </Card>
       )}
@@ -132,4 +138,4 @@ const Summy = () => {
   );
 };
 
-export default Summy;
+export default Jaycee;
