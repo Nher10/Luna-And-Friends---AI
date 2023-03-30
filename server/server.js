@@ -22,10 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 //routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/openai", require("./routes/openaiRoutes"));
 
 //listen
 app.listen(8080, () => {
